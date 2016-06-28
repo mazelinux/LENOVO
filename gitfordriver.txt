@@ -127,3 +127,30 @@ completion 主要作用是用于同步
 内核定时器
 #######################
 linux中断底半部机制
+Linux中断的顶半部和底半部.：http://blog.csdn.net/zxncvb/article/details/10625181
+
+
+
+Linux新内核不支持中断嵌套
+
+优先级
+↓中断上下文
+↓软中断上下文
+↓进程上下文
+#######################
+DMA:http://baike.baidu.com/link?url=BANdZFBRDkYkJ4cuLqBiPIIWcn1ScPSx3n0meMHGsnaMVBU6DI6hVIixlFr6LdnSpxt8nW9KEzP3868YJa_LTftFu9Fb5GO8jh1IQuXXdEm
+控制内存直接和外设进行数据交互（不去先看cache是否命中相应数据）
+
+cache命中问题 cpu读内存，先看cache是否命中，否则读内存
+
+
+
+
+
+
+
+
+cpu--cache--内存--dma---外设
+1：由于dma不读cache ；会导致cache一致性的问题，cache对应的内存被dma改变，而cpu不知道，出错
+2：cpu写入数据到cache；而cache在还没有写入内存的时候，dma接受内存相应位置数据到外设，出错
+#######################
