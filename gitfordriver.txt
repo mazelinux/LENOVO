@@ -147,10 +147,24 @@ cache命中问题 cpu读内存，先看cache是否命中，否则读内存
 
 
 
-
-
-
 cpu--cache--内存--dma---外设
 1：由于dma不读cache ；会导致cache一致性的问题，cache对应的内存被dma改变，而cpu不知道，出错
 2：cpu写入数据到cache；而cache在还没有写入内存的时候，dma接受内存相应位置数据到外设，出错
+
+一致性DMA缓冲区 （即关掉这片内存与cache的关联，cpu也只能直接读取这片内存）
+总之想办法忽略掉cache，不去使用他就好
+
 #######################
+字符设备驱动
+lanana (baidu or google)
+$ cat /proc/devices 
+查看计算机的设备，字符设备，块设备等
+内存拷贝
+copy_for_muser
+copy_to_user
+
+
+
+goto语句在linux编程里大量使用（出错处理的时候大量使用）
+kernel/Document里面有编写linux代码规范
+#########################
