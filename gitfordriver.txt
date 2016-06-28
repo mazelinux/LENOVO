@@ -163,8 +163,21 @@ $ cat /proc/devices
 copy_for_muser
 copy_to_user
 
+字符设备驱动主体：file_operations
 
 
 goto语句在linux编程里大量使用（出错处理的时候大量使用）
 kernel/Document里面有编写linux代码规范
 #########################
+系统io分类
+http://shensy.iteye.com/blog/1864781
+http://blog.csdn.net/sszgg2006/article/details/38664789
+阻塞与非阻塞针对的是进程或线程而同步与异步所针对的是功能函数
+
+
+阻塞io:进程阻塞在io操作上（读写一个文件，读写一个串口，读写单一设备的时候用法哦）
+非阻塞io：防止进程阻塞在io操作上（在单一线程里面服务多个io）
+io多路复用：允许同时对多个io进行控制
+信号驱动io：一种异步通信模型
+
+一个驱动应该同时支持上面四种io方式
