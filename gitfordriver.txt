@@ -240,6 +240,30 @@ request：多个bio整合成一个request
 sd卡，flash不需要调度算法
 
 
+ramdisk ：用内存里面一部分来模拟一个磁盘
+loop：把一个img看成一个磁盘
+flash：特殊：每一次写都需要先擦除，负载均衡问题。
+MTD：
 
 
 块设备的主体就是处理上层请求
+###############################
+Platform设备
+
+概括来说，Platform设备包括：基于端口的设备（已不推荐使用，保留下来只为兼容旧设备，legacy）；
+连接物理总线的桥设备；集成在SOC平台上面的控制器；连接在其它bus上的设备（很少见）。等等。 
+
+这些设备有一个基本的特征：可以通过CPU bus直接寻址（例如在嵌入式系统常见的“寄存器”）。
+因此，由于这个共性，内核在设备模型的基础上（device和device_driver），对这些设备进行了更进一步的封装，抽象出paltform bus、platform device和platform driver，
+以便驱动开发人员可以方便的开发这类设备的驱动。 
+
+
+################################
+linux所有的驱动都挂在总线上面（platform总线）
+
+platform总线
+platform driver
+platform device
+platform data
+设备resource（专门描述基地址，中断等等信息）
+把跟板子相关的信息，从驱动里面刨除出来
