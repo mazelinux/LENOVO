@@ -267,3 +267,41 @@ platform device
 platform data
 设备resource（专门描述基地址，中断等等信息）
 把跟板子相关的信息，从驱动里面刨除出来
+
+
+
+
+################################
+主机驱动与外设驱动分离
+
+
+
+
+
+#################################
+i2c驱动架构
+
+i2c核心（提供各种api）
+##################################
+linux kernel 调试方法
+
+
+printk
+dev_xxx
+pr_xxx
+BUG_ON
+BUG
+
+###################################
+BSP的组成部分
+
+plat/mach各组建的实现
+	内核节拍
+	中断管理	
+	时钟
+	GPIO
+	DMA
+	io内存映射
+设备与资源
+	platform device、resource、和platform data
+	uart/spi/i2c等设备板级resource
