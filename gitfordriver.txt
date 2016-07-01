@@ -305,3 +305,33 @@ plat/mach各组建的实现
 设备与资源
 	platform device、resource、和platform data
 	uart/spi/i2c等设备板级resource
+
+
+
+####################################
+
+probe、remove，这两个接口函数用于实现driver逻辑的开始和结束。
+Driver是一段软件code，因此会有开始和结束两个代码逻辑，就像PC程序，会有一个main函数，main函数的开始就是开始，return的地方就是结束。
+而内核driver却有其特殊性：在设备模型的结构下，只有driver和device同时存在时，才需要开始执行driver的代码逻辑。
+这也是probe和remove两个接口名称的由来：检测到了设备和移除了设备（就是为热拔插起的！）。
+
+
+
+
+
+######################
+所谓驱动层次化 
+
+
+从面向对象的角度来看： 
+    - struct kobj（及其相关结构如kset, ktype等）属于最抽象的基类，代码最简洁，最不具体； 
+    - struct device（及其相关结构如device_driver，device_type等）是对kobj的封装，是第一层派生类； 
+    - 再上层的结构（如platform_device等），是在struct device的基础上再封装一次，是第二层派生类。 
+
+因此，例如我们创建了一个struct platform_device的实例，使用完毕后要释放它。那么这个过程按道理应该是： 
+    - 系统内部先调用platform_device的remove函数，它只处理自己层特有的变量； 
+    - 完毕后，系统调用第一层派生类struct device的release函数，处理了自己这一层的特有变量； 
+    - 最后，调用基类kobject的release函数，将整个空间释放掉。 
+
+整个过程应该会跟C++析构过程比较类似，上述的“系统内部”也应该类似于C++编译器自动生成的代码，因为C++中析构函数的逆向调用是自动进行的，
+并没有在派生类的析构函数中显示调用。类似地，在此处上层的release中也不会显式调用下层的release，都是由系统内部完成的。 
