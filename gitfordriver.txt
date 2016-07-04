@@ -1,4 +1,4 @@
-gpio 怎么在代码里面拉高拉低
+gpio 怎么在代码里面拉高拉低 gpio chip
 设备驱动
 中断 linux驱动如何实现
 android 怎么变成ui显示
@@ -335,3 +335,25 @@ Driver是一段软件code，因此会有开始和结束两个代码逻辑，就像PC程序，会有一个main函
 
 整个过程应该会跟C++析构过程比较类似，上述的“系统内部”也应该类似于C++编译器自动生成的代码，因为C++中析构函数的逆向调用是自动进行的，
 并没有在派生类的析构函数中显示调用。类似地，在此处上层的release中也不会显式调用下层的release，都是由系统内部完成的。 
+
+
+
+############################
+3. 设备模型框架下驱动开发的基本步骤
+在设备模型框架下，设备驱动的开发是一件很简单的事情，主要包括2个步骤：
+步骤1：分配一个struct device类型的变量，填充必要的信息后，把它注册到内核中。
+步骤2：分配一个struct device_driver类型的变量，填充必要的信息后，把它注册到内核中。
+这两步完成后，内核会在合适的时机（后面会讲），
+调用struct device_driver变量中的probe、remove、suspend、resume等回调函数，
+从而触发或者终结设备驱动的执行。
+而所有的驱动程序逻辑，都会由这些回调函数实现，
+此时，驱动开发者眼中便不再有“设备模型”，转而只关心驱动本身的实现。
+
+
+
+以上两个步骤的补充说明：
+1. 一般情况下，Linux驱动开发很少直接使用device和device_driver，因为内核在它们之上又封装了一层，如soc device、platform device等等，而这些层次提供的接口更为简单、易用（也正是因为这个原因，本文并不会过多涉及device、device_driver等模块的实现细节）。
+2. 内核提供很多struct device结构的操作接口（具体可以参考include/linux/device.h和drivers/base/core.c的代码），主要包括初始化（device_initialize）、注册到内核（device_register）、分配存储空间+初始化+注册到内核（device_create）等等，可以根据需要使用。
+3. device和device_driver必须具备相同的名称，内核才能完成匹配操作，进而调用device_driver中的相应接口。这里的同名，作用范围是同一个bus下的所有device和device_driver。
+4. device和device_driver必须挂载在一个bus之下，该bus可以是实际存在的，也可以是虚拟的。
+5. driver开发者可以在struct device变量中，保存描述设备特征的信息，如寻址空间、依赖的GPIOs等，因为device指针会在执行probe等接口时传入，这时driver就可以根据这些信息，执行相应的逻辑操作了。
