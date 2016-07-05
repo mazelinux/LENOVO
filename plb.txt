@@ -1,0 +1,42 @@
+repo init -b intelCHT_M_MR1_dev -u tablet:/platform/manifest
+Q：热插拔。软件+硬件、、。。。。
+
+
+A：一个完整的热插拔系统包括热插拔系统的硬件，支持热插拔的软件和操作系统，支持热插拔的设备驱动程序和支持热插拔的用户接口。
+硬件支持：插入，先数据，后电源；拔出，先电源，后数据
+uevent, user space event. 内核与用户空间的一种通信机制
+http://www.wowotech.net/linux_kenrel/uevent.html
+热插拔事件从内核空间到用户空间
+http://blog.csdn.net/bingqingsuimeng/article/details/7922217
+软件支持：
+
+最小子系统，，，。。。。+ramdisk+
+init、、
+
+
+一般什么是.ko
+
+
+什么杨的设备挂在在paltform上
+
+gpio通过platform实现
+
+、proc/interrpet cat
+
+input_device+pdevice 关系
+
+
+tasklet
+schedule
+isr
+completion关系
+
+
+文件描述符
+
+块设备完成了以后传给谁
+
+设备驱动读出来以后传给谁
+
+
+设备驱动跑起来的第一个函数是哪一个！
