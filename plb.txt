@@ -8,8 +8,17 @@ uevent, user space event. 内核与用户空间的一种通信机制
 http://www.wowotech.net/linux_kenrel/uevent.html
 热插拔事件从内核空间到用户空间
 http://blog.csdn.net/bingqingsuimeng/article/details/7922217
-软件支持：
 
+http://www.wowotech.net/linux_kenrel/uevent.html
+http://blog.csdn.net/bingqingsuimeng/article/details/7924300
+讲清楚了koject_uevent_env在做了什么，如何进入用户空间
+如果定义了"CONFIG_NET”，则使用netlink发送该uevent
+其中的call_usermodehelper是个最终切换接口
+
+Uevent模块准备好上报事件的格式后，可以通过两个途径把事件上报到用户空间：一种是通过kmod模块，直接调用用户空间的可执行文件；另一种是通过netlink通信机制，将事件从内核空间传递给用户空间。
+而在Linux系统，可执行文件的执行，依赖于环境变量，因此kobj_uevent_env用于组织此次事件上报时的环境变量。
+
+软件支持：插入设备->device_add->kobject_uevent->kobject_uevent_env（之前都是内核空间动作）->call_usermodehelper->调用用户空间应用，
 最小子系统，，，。。。。+ramdisk+
 init、、
 
