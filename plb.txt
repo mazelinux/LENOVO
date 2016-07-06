@@ -1,4 +1,7 @@
+C2pbrakf
 repo init -b intelCHT_M_MR1_dev -u tablet:/platform/manifest
+
+
 Q：热插拔。软件+硬件、、。。。。
 
 
@@ -19,14 +22,43 @@ Uevent模块准备好上报事件的格式后，可以通过两个途径把事件上报到用户空间：一种是通
 而在Linux系统，可执行文件的执行，依赖于环境变量，因此kobj_uevent_env用于组织此次事件上报时的环境变量。
 
 软件支持：插入设备->device_add->kobject_uevent->kobject_uevent_env（之前都是内核空间动作）->call_usermodehelper->调用用户空间应用，
-最小子系统，，，。。。。+ramdisk+
-init、、
 
 
-一般什么是.ko
+1 外设插入
+2 总线发现（usb中断hub_irq）新设备，调用device_add;添加新设备到设备管理器
+3 device_add调用kobject_uevent(,KOBJ_ADD),向用户空间传递环境变量以及action；netlink方式（广播方式）【主要就是Uevent】
+4 用户空间应用程序收到消息【udev ->> udevd】
+5 udevd根据消息和环境变量，查询/sys的变化，按照规则(/etc/udev/rules.d/*)，在/dev目录下自动创建设备节点；
 
 
-什么杨的设备挂在在paltform上
+同时可以总结，设备插入系统时，相应驱动的关联情况：
+① 若直接编译进内核或在启动时加载，则无需在udev中加载驱动模块，在bus_probe_device()中会为其找到相应的驱动；
+② 若驱动需要动态加载，则需要在udev(目前的情况是这样，以前也有其他方式如/sbin/hotplug，cardmgr等)中，动态加载其驱动，在驱动的register函数中，找到该device进行关联；
+
+udev 是Linux kernel 2.6系列的设备管理器，它主要的功能是管理/dev目录底下的设备节点的程序。
+udevd是根据一定的规则在/dev/目录下生成设备文件的后台服务进程。
+
+比如你插入一个u盘， udevd服务就会自动生成/dev/sda 这样的文件。
+
+
+
+
+Q:最小子系统，，，。。。。+ramdisk+initrd
+
+A:
+http://blog.chinaunix.net/uid-23069658-id-3142047.html  Linux系统启动全过程
+http://blog.sina.com.cn/s/blog_c70e10380102w9b5.html     Linux系统启动全过程，详细，方便理解
+http://blog.csdn.net/miss_acha/article/details/50004717 讲述的不错关于grub
+http://www.2cto.com/os/201603/494064.html后半段讲的很清楚
+
+Q：一般什么是.ko
+A:
+.so 文件是动态链接库文件，相当于 win下的 .dll 文件。
+.a  文件是静态库文件。
+.ko 是内核模块文件，是内核加载的某个模块，一般是驱动程序。
+
+
+什么样的设备挂在在paltform上
 
 gpio通过platform实现
 
