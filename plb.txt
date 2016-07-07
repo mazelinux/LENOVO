@@ -8,21 +8,24 @@ Q：热插拔。软件+硬件、、。。。。
 A：一个完整的热插拔系统包括热插拔系统的硬件，支持热插拔的软件和操作系统，支持热插拔的设备驱动程序和支持热插拔的用户接口。
 硬件支持：插入，先数据，后电源；拔出，先电源，后数据
 uevent, user space event. 内核与用户空间的一种通信机制
-http://www.wowotech.net/linux_kenrel/uevent.html
-热插拔事件从内核空间到用户空间
-http://blog.csdn.net/bingqingsuimeng/article/details/7922217
 
-http://www.wowotech.net/linux_kenrel/uevent.html
-http://blog.csdn.net/bingqingsuimeng/article/details/7924300
+http://www.wowotech.net/linux_kenrel/uevent.html 主要讲述的是头文件
+热插拔事件从内核空间到用户空间
+
+/// http://blog.csdn.net/bingqingsuimeng/article/details/7922217 一般，并且知识体系太老了
+
+http://blog.csdn.net/bingqingsuimeng/article/details/7924300  有源代码的讲解，比较清晰
+
 讲清楚了koject_uevent_env在做了什么，如何进入用户空间
 如果定义了"CONFIG_NET”，则使用netlink发送该uevent
 其中的call_usermodehelper是个最终切换接口
 
-Uevent模块准备好上报事件的格式后，可以通过两个途径把事件上报到用户空间：一种是通过kmod模块，直接调用用户空间的可执行文件；另一种是通过netlink通信机制，将事件从内核空间传递给用户空间。
+Uevent模块准备好上报事件的格式后，可以通过两个途径把事件上报到用户空间：一种是通过kmod模块，直接调用用户空间的可执行文件；另一种是通过netlink通信机制，将事件从内核空间传递给用户空间。//这里的kmod是什么鬼？
 而在Linux系统，可执行文件的执行，依赖于环境变量，因此kobj_uevent_env用于组织此次事件上报时的环境变量。
 
-软件支持：插入设备->device_add->kobject_uevent->kobject_uevent_env（之前都是内核空间动作）->call_usermodehelper->调用用户空间应用，
+软件支持：插入设备->device_add->kobject_uevent->kobject_uevent_env（之前都是内核空间动作）->call_usermodehelper_setup->call_usermodehelper_exec->调用用户空间应用(call_usermodehelper=setup+exec)，
 
+udevd (udev 后台程序)
 
 1 外设插入
 2 总线发现（usb中断hub_irq）新设备，调用device_add;添加新设备到设备管理器
@@ -40,8 +43,9 @@ udevd是根据一定的规则在/dev/目录下生成设备文件的后台服务进程。
 
 比如你插入一个u盘， udevd服务就会自动生成/dev/sda 这样的文件。
 
-
-
+http://eeepage.info/sysfs/ 对新的sysfs的讲解非常到位
+http://www.linuxidc.com/Linux/2012-05/60757.htm 同样讲解sysfs文件系统
+http://blog.chinaunix.net/uid-24227137-id-3266449.html 讲解kobject,kset,sysfs
 
 Q:最小子系统，，，。。。。+ramdisk+initrd
 
