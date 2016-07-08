@@ -67,7 +67,10 @@ A:
 Q：什么样的设备挂在在paltform上
 
 A:
+
+http://blog.chinaunix.net/uid-25014876-id-111745.html 讲解platform总线的
 设备注册的流程
+
 platform_device_register->device_initialize->device_add->setup_parent->kobject_add->device_create_file->device_add_attrs->bus_add_device->kobject_uevent->bus_attach_device
 gpio通过platform实现
 
