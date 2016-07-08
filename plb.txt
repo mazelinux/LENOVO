@@ -16,6 +16,8 @@ http://www.wowotech.net/linux_kenrel/uevent.html 主要讲述的是头文件
 
 http://blog.csdn.net/bingqingsuimeng/article/details/7924300  有源代码的讲解，比较清晰
 
+http://www.cnblogs.com/image-eye/archive/2011/08/19/2145858.html 内核启动过程的驱动加载
+
 讲清楚了koject_uevent_env在做了什么，如何进入用户空间
 如果定义了"CONFIG_NET”，则使用netlink发送该uevent
 其中的call_usermodehelper是个最终切换接口
@@ -62,8 +64,11 @@ A:
 .ko 是内核模块文件，是内核加载的某个模块，一般是驱动程序。
 
 
-什么样的设备挂在在paltform上
+Q：什么样的设备挂在在paltform上
 
+A:
+设备注册的流程
+platform_device_register->device_initialize->device_add->setup_parent->kobject_add->device_create_file->device_add_attrs->bus_add_device->kobject_uevent->bus_attach_device
 gpio通过platform实现
 
 、proc/interrpet cat
