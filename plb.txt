@@ -74,22 +74,28 @@ http://blog.chinaunix.net/uid-25014876-id-111745.html 讲解platform总线的
 platform_device_register->device_initialize->device_add->setup_parent->kobject_add->device_create_file->device_add_attrs->bus_add_device->kobject_uevent->bus_attach_device
 gpio通过platform实现
 
-、proc/interrpet cat
-
-input_device+pdevice 关系
 
 
-tasklet
+
+Q：、proc/interrpet cat
+
+Q:input_device+pdevice 关系
+
+
+
+
+Q:
+Stasklet
 schedule
 isr
 completion关系
 
 
-文件描述符
+Q:文件描述符
 
-块设备完成了以后传给谁
+Q:块设备完成了以后传给谁
 
-设备驱动读出来以后传给谁
+Q:设备驱动读出来以后传给谁
 
 
-设备驱动跑起来的第一个函数是哪一个！
+Q:设备驱动跑起来的第一个函数是哪一个！
