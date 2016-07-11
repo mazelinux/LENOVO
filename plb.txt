@@ -1,6 +1,6 @@
 C2pbrakf
 repo init -b intelCHT_M_MR1_dev -u tablet:/platform/manifest
-
+repo init –u sma:platform/manifest –b intelCHT_M_MR1_dev
 
 Q：热插拔。软件+硬件、、。。。。
 
@@ -17,6 +17,10 @@ http://www.wowotech.net/linux_kenrel/uevent.html 主要讲述的是头文件
 http://blog.csdn.net/bingqingsuimeng/article/details/7924300  有源代码的讲解，比较清晰
 
 http://www.cnblogs.com/image-eye/archive/2011/08/19/2145858.html 内核启动过程的驱动加载
+
+http://blog.chinaunix.net/uid-25721104-id-3023525.html 讨论的关于热插拔
+
+http://blog.csdn.net/zirconsdu/article/details/8792184 图解很清晰
 
 讲清楚了koject_uevent_env在做了什么，如何进入用户空间
 如果定义了"CONFIG_NET”，则使用netlink发送该uevent
