@@ -81,19 +81,18 @@ gpio通过platform实现
 
 
 
-Q：、proc/interrpet cat
-
 Q:input_device+pdevice 关系
 
 
 
 
 Q:
-Stasklet
+tasklet
 schedule
 isr
 completion关系
 
+A:http://blog.sina.com.cn/s/blog_70a9dd840100uqfh.html 讲述了什么是isr，也涉及了中断上下文以及中断上半部和下半部
 
 Q:文件描述符
 
