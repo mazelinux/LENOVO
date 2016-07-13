@@ -94,6 +94,9 @@ completion关系
 
 A:http://blog.sina.com.cn/s/blog_70a9dd840100uqfh.html 讲述了什么是isr，也涉及了中断上下文以及中断上半部和下半部
 
+http://blog.sina.com.cn/s/blog_65373f1401018w15.html
+http://blog.sina.com.cn/s/blog_510ac74901015fgz.html
+
 Q:文件描述符
 
 Q:块设备完成了以后传给谁
