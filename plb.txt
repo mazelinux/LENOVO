@@ -56,10 +56,23 @@ http://blog.chinaunix.net/uid-24227137-id-3266449.html 讲解kobject,kset,sysfs
 Q:最小子系统，，，。。。。+ramdisk+initrd
 
 A:
+ramdisk是一种基于内存的虚拟文件系统，通常用于放置内核的中间数据。
+而initrd全称为"boot loader initialized RAM disk"，也就是由启动加载器所初始化的RamDisk设备，它的作用是完善内核的模块机制，让内核的初始化流程更具弹性；内核以及initrd，都由bootloader在机子启动后被加载至内存的指定位置，主要功能为按需加载模块以及按需改变根文件系统。
+
+initrd 的英文含义是 bootloader initialized RAM disk，就是由 boot loader 初始化的内存盘。
+initrd 大体上就是指 包含根文件系统的ramdisk。
+initrd即initial ramdisk,它是在系统引导过程中挂载的一个临时根文件系统.激活系统所须加载的文件系统.
+
 http://blog.chinaunix.net/uid-23069658-id-3142047.html  Linux系统启动全过程
 http://blog.sina.com.cn/s/blog_c70e10380102w9b5.html     Linux系统启动全过程，详细，方便理解
 http://blog.csdn.net/miss_acha/article/details/50004717 讲述的不错关于grub
 http://www.2cto.com/os/201603/494064.html后半段讲的很清楚
+
+http://www.ibm.com/developerworks/cn/views/linux/libraryview.jsp?sort_by=&show_abstract=true&show_all=&search_flag=&contentarea_by=Linux&search_by=initrd&topic_by=-1&type_by=%E6%89%80%E6%9C%89%E7%B1%BB%E5%88%AB&ibm-search=%E6%90%9C%E7%B4%A2
+IBM提供的文档库里面比较全
+
+
+我的虚拟机里面有解压好的initrd压缩文件
 
 Q：一般什么是.ko
 A:
@@ -70,7 +83,7 @@ A:
 
 Q：什么样的设备挂在在paltform上
 
-A:
+A:所有的设备都可以挂载在platform上
 
 http://blog.chinaunix.net/uid-25014876-id-111745.html 讲解platform总线的
 设备注册的流程
@@ -104,4 +117,4 @@ Q:块设备完成了以后传给谁
 Q:设备驱动读出来以后传给谁
 
 
-Q:设备驱动跑起来的第一个函数是哪一个！
+Q:设备驱动跑起来的第一个函数是哪一个！init
