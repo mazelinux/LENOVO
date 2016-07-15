@@ -103,7 +103,7 @@ gpio通过platform实现
 
 
 
-Q:input_device+pdevice 关系
+Q:input_device+*pdevice 关系
 
 
 
