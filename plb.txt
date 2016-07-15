@@ -126,9 +126,11 @@ Q:块设备完成了以后传给谁
 Q:设备驱动读出来以后传给谁
 
 
-Q:设备驱动跑起来的第一个函数是哪一个！init
+Q:设备驱动跑起来的第一个函数是哪一个！
+A:module__init
 
-
+Q:Input子系统架构
+A:http://blog.csdn.net/lbmygf/article/details/7360084
 
 Q：MODULE_DEVICE_TABLE是个什么东西？
 MODULE_DEVICE_TABLE（设备类型，设备表），其中，设备类型，包括USB,PCI等，也可以自己起名字，上述代码中是针对不同的平台分的类；设备表也是自己定义的，它的最后一项必须是空，用来标识结束。
