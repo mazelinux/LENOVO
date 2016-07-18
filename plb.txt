@@ -120,9 +120,18 @@ A:http://www.kuqin.com/shuoit/20140104/337421.html 讲述了什么是tasklet
 http://blog.csdn.net/lizuobin2/article/details/51793911 这篇讲的比较好，把中断对应的机制分的很详细；但是只是做了一个详细的划分，机制原理讲述不清
 
 schedule
-http://blog.csdn.net/songjinshi/article/details/23262923
+http://blog.csdn.net/songjinshi/article/details/23262923 讲述调用调度程序的时机
 
-isr
+每个时钟中断（timer interrupt）发生时，由三个函数协同工作，共同完成进程的选择和切换，它们是：schedule（）、do_timer（）及ret_form_sys_call（）。我们先来解释一下这三个函数：
+schedule（）：进程调度函数，由它来完成进程的选择（调度）；
+do_timer（）：暂且称之为时钟函数，该函数在时钟中断服务程序中被调用，是时钟中断服务程序的主要组成部分，该函数被调用的频率就是时钟中断的频率即每秒钟100次（简称100赫兹或100Hz）；
+ret_from_sys_call（）：系统调用返回函数。当一个系统调用或中断完成时，该函数被调用，用于处理一些收尾工作，例如信号处理、核心任务等等。
+
+isr：中断服务例程ISR(Inerrupt Service Routine)
+
+简单来说就是，一条中断线对应一个中断处理程序，而一个中断处理程序再对应若干个中断服务例程 ：http://blog.chinaunix.net/uid-27177626-id-3438994.html
+图解加文字叙述，比较容易理解
+
 A:http://blog.sina.com.cn/s/blog_70a9dd840100uqfh.html 讲述了什么是isr，也涉及了中断上下文以及中断上半部和下半部
 http://blog.sina.com.cn/s/blog_65373f1401018w15.html
 http://blog.sina.com.cn/s/blog_510ac74901015fgz.html
