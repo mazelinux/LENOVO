@@ -136,7 +136,7 @@ A:http://blog.sina.com.cn/s/blog_70a9dd840100uqfh.html 讲述了什么是isr，也涉及了
 http://blog.sina.com.cn/s/blog_65373f1401018w15.html
 http://blog.sina.com.cn/s/blog_510ac74901015fgz.html
 
-
+http://blog.csdn.net/DroidPhone/article/details/7445825 中断子系统的一系列文章
 
 Q:文件描述符
 
