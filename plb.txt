@@ -114,10 +114,20 @@ schedule
 isr
 completion关系
 
-A:http://blog.sina.com.cn/s/blog_70a9dd840100uqfh.html 讲述了什么是isr，也涉及了中断上下文以及中断上半部和下半部
 
+tasklet
+A:http://www.kuqin.com/shuoit/20140104/337421.html 讲述了什么是tasklet
+http://blog.csdn.net/lizuobin2/article/details/51793911 这篇讲的比较好，把中断对应的机制分的很详细；但是只是做了一个详细的划分，机制原理讲述不清
+
+schedule
+http://blog.csdn.net/songjinshi/article/details/23262923
+
+isr
+A:http://blog.sina.com.cn/s/blog_70a9dd840100uqfh.html 讲述了什么是isr，也涉及了中断上下文以及中断上半部和下半部
 http://blog.sina.com.cn/s/blog_65373f1401018w15.html
 http://blog.sina.com.cn/s/blog_510ac74901015fgz.html
+
+
 
 Q:文件描述符
 
