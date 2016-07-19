@@ -76,13 +76,16 @@ IBM提供的文档库里面比较全
 
 先后出现两种机制来作为“boot loader装载kernel”到“真正的/sbin/init执行”这个启动过程的桥梁: initrd和initramfs  
 
+
+ramdisk==ramtodisk
+initrd==init ramdisk
+
 内核在启动的时候，需要加载一些驱动，需要一些内核模块，没有文件系统，就没有文件
 文件系统在哪里？在硬盘上实现的，没有硬盘~所以使用ramdisk技术，把内存的一块区域模拟成硬盘使用，initrd将这块“硬盘”初始化，加载必要的文件系统，这个initrd是一个压缩文件系统，里面有一些必要的应用程序以及模块等等，辅助内核完成内核的初始化
 initrd基本解压以后就暂时的挂载在根目录下面，然后内核就把他当作根目录来执行一些必要的任务，加载模块等等，后期再将他挂载到一个其他的目录，从而挂载真正的根目录
 
 
-我的虚拟机里面有解压好的initrd压缩文件
-
+我的虚拟机里面有解压好的initrd压缩文件；经过观察，基本就是一个空的文件系统+一个init的脚本，这个脚本的内容：1创建相应的目录，并且挂载相应的文件系统。创建一些设备节点，随后指定一些变量的值，如 init，root等等
 Q：一般什么是.ko
 A:
 .so 文件是动态链接库文件，相当于 win下的 .dll 文件。
@@ -101,23 +104,19 @@ platform_device_register->device_initialize->device_add->setup_parent->kobject_a
 gpio通过platform实现
 
 
-
-
-Q:input_device+*pdevice 关系
-
-
-
-
 Q:
 tasklet
 schedule
 isr
 completion关系
 
+前三者的联系在于中断子系统
+
 
 tasklet
 A:http://www.kuqin.com/shuoit/20140104/337421.html 讲述了什么是tasklet
 http://blog.csdn.net/lizuobin2/article/details/51793911 这篇讲的比较好，把中断对应的机制分的很详细；但是只是做了一个详细的划分，机制原理讲述不清
+同一个tasklet不能同时在多个cpu上跑
 
 schedule
 http://blog.csdn.net/songjinshi/article/details/23262923 讲述调用调度程序的时机
@@ -138,7 +137,46 @@ http://blog.sina.com.cn/s/blog_510ac74901015fgz.html
 
 http://blog.csdn.net/DroidPhone/article/details/7445825 中断子系统的一系列文章
 
-总结：tasklet是一种基于软中断的延时处理机制，是中断底半部的一种处理方式。基本上要使用就是申请中断，通过宏创建tasklet与处理函数的关联，在顶半部调用tasklet_schedule使系统在适当的时候进行调度
+http://blog.csdn.net/lickylin/article/details/12657373 总结依托于这篇文章写
+
+总结：tasklet是一种基于软中断的延时处理机制，是中断底半部的一种处理方式。
+基本上要使用就是申请中断，通过宏创建tasklet与处理函数的关联，在顶半部调用tasklet_schedule使系统在适当的时候进行调
+（就是把tasklet_struct结构体挂到tasklet_vec链表或者挂接到tasklet_hi_vec链表上，并调度软中断TASKLET_SOFTIRQ或者HI_SOFTIRQ；Tasklet_action在软中断TASKLET_SOFTIRQ被调度到后会被执行，它从tasklet_vec链表中把tasklet_struct结构体都取下来，然后逐个执行。如果t->count的值等于0，说明这个tasklet在调度之后，被disable掉了，所以会将tasklet结构体重新放回到tasklet_vec链表，并重新调度TASKLET_SOFTIRQ软中断，在之后enable这个tasklet之后重新再执行它。）；
+
+__tasklet_schedule：
+作用：
+1、 关闭中断
+2、 调用__tasklet_common_schedule，实现添加tasklet并开启软中断的功能
+3、 开启中断
+
+tasklet_schedule
+__tasklet_schedule
+__tasklet_common_schedule
+
+3个函数实现了将tasklet添加到tasklet_vec（每个CPU都有一个该变量）中，并开启软中断。
+
+tasklet_action：
+作用：
+1） 关闭软中断，获取运行CPU所对应的tasklet链表的表头，然后将表头置为NULL，再启中断
+2） 遍历tasklet链表，每次遍历均执行如下操作：
+a) 获取tasklet链表的一个tasklet变量
+b) 对该tasklet执行加锁操作，即置位TASKLET_STATE_RUN
+c) 判断当前tasklet是否使能，若已使能，则执行以下操作
+i. tasklet的当前状态若为TASKLET_STATE_SCHED，则清空该位
+ii. 调用该tasklet的回调处理函数
+iii. 解锁该tasklet，重新while循环
+若未使能，则执行以下操作：
+i. 关闭中断
+ii. 将该tasklet重新加入到链表tasklet_vec
+iii. 开启软中断TASKLET_SOFTIRQ，在 下一次处理该软中断时，再处理该tasklet
+iv. 开启中断
+
+底半部机制包括:tasklet，工作队列，软中断；
+
+
+
+
+Q:input_device+*pdevice 关系
 
 Q:文件描述符
 
