@@ -138,6 +138,8 @@ http://blog.sina.com.cn/s/blog_510ac74901015fgz.html
 
 http://blog.csdn.net/DroidPhone/article/details/7445825 中断子系统的一系列文章
 
+总结：tasklet是一种基于软中断的延时处理机制，是中断底半部的一种处理方式。基本上要使用就是申请中断，通过宏创建tasklet与处理函数的关联，在顶半部调用tasklet_schedule使系统在适当的时候进行调度
+
 Q:文件描述符
 
 Q:块设备完成了以后传给谁
