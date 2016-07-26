@@ -229,8 +229,9 @@ iv. 开启中断
 
 
 
-
+Q:锁的概念 三种，
 Q:锁的概念
+http://blog.csdn.net/lucien_cc/article/details/7440225
 
 Q:文件描述符
 
@@ -250,7 +251,7 @@ http://blog.chinaunix.net/uid-20776117-id-3212043.html
 Q：MODULE_DEVICE_TABLE是个什么东西？
 MODULE_DEVICE_TABLE（设备类型，设备表），其中，设备类型，包括USB,PCI等，也可以自己起名字，上述代码中是针对不同的平台分的类；设备表也是自己定义的，它的最后一项必须是空，用来标识结束。
 
-Q:锁的概念 三种，
+
 
 Q:一个I2C总线只能有一个配适器？如何实现传输
 http://blog.csdn.net/zclongembedded/article/details/8255977详解传输
@@ -261,5 +262,3 @@ Q:输入子系统（input）如何与i2c关联起来的？
 
 Q:msleep() 与mdelay()
 http://blog.csdn.net/mayouyang/article/details/4228378 两者实际运用区别
-
-沪松公路2517弄86支弄70号402室
