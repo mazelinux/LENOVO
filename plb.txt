@@ -252,10 +252,14 @@ MODULE_DEVICE_TABLE（设备类型，设备表），其中，设备类型，包括USB,PCI等，也可以自
 
 Q:锁的概念 三种，
 
-Q:一个I2C总线只能有一个配适器？
+Q:一个I2C总线只能有一个配适器？如何实现传输
+http://blog.csdn.net/zclongembedded/article/details/8255977详解传输
 
 Q:私有结构体到底是个什么概念？
 
 Q:输入子系统（input）如何与i2c关联起来的？
+
+Q:msleep() 与mdelay()
+http://blog.csdn.net/mayouyang/article/details/4228378 两者实际运用区别
 
 沪松公路2517弄86支弄70号402室
