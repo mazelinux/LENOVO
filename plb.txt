@@ -147,7 +147,7 @@ Q:
 tasklet
 schedule
 isr
-completion关系
+关系
 
 前三者的联系在于中断子系统
 
@@ -232,6 +232,14 @@ iv. 开启中断
 Q:锁的概念 三种，
 Q:锁的概念
 http://blog.csdn.net/lucien_cc/article/details/7440225
+mutex(互斥锁)
+Spanlock(自旋锁)
+atomic（原子操作）
+semaphore (信号量)
+rw_semaphore （读写信号量）
+seqlock（顺序锁）
+rm_lock (读写自旋锁)
+completion（完成量）
 
 Q:文件描述符
 
