@@ -50,10 +50,27 @@ udev ÊÇLinux kernel 2.6ÏµÁÐµÄÉè±¸¹ÜÀíÆ÷£¬ËüÖ÷ÒªµÄ¹¦ÄÜÊÇ¹ÜÀí/devÄ¿Â¼µ×ÏÂµÄÉè±¸½Úµ
 udevdÊÇ¸ù¾ÝÒ»¶¨µÄ¹æÔòÔÚ/dev/Ä¿Â¼ÏÂÉú³ÉÉè±¸ÎÄ¼þµÄºóÌ¨·þÎñ½ø³Ì¡£
 
 ±ÈÈçÄã²åÈëÒ»¸öuÅÌ£¬ udevd·þÎñ¾Í»á×Ô¶¯Éú³É/dev/sda ÕâÑùµÄÎÄ¼þ¡£
-
+=======================================================================
+=======================================================================
 http://eeepage.info/sysfs/ ¶ÔÐÂµÄsysfsµÄ½²½â·Ç³£µ½Î»
 http://www.linuxidc.com/Linux/2012-05/60757.htm Í¬Ñù½²½âsysfsÎÄ¼þÏµÍ³
 http://blog.chinaunix.net/uid-24227137-id-3266449.html ½²½âkobject,kset,sysfs
+=======================================
+´ÓÃæÏò¶ÔÏóµÄ½Ç¶ÈÀ´¿´£º 
+    - struct kobj£¨¼°ÆäÏà¹Ø½á¹¹Èçkset, ktypeµÈ£©ÊôÓÚ×î³éÏóµÄ»ùÀà£¬´úÂë×î¼ò½à£¬×î²»¾ßÌå£» 
+    - struct device£¨¼°ÆäÏà¹Ø½á¹¹Èçdevice_driver£¬device_typeµÈ£©ÊÇ¶ÔkobjµÄ·â×°£¬ÊÇµÚÒ»²ãÅÉÉúÀà£» 
+    - ÔÙÉÏ²ãµÄ½á¹¹£¨Èçplatform_deviceµÈ£©£¬ÊÇÔÚstruct deviceµÄ»ù´¡ÉÏÔÙ·â×°Ò»´Î£¬ÊÇµÚ¶þ²ãÅÉÉúÀà¡£ 
+
+Òò´Ë£¬ÀýÈçÎÒÃÇ´´½¨ÁËÒ»¸östruct platform_deviceµÄÊµÀý£¬Ê¹ÓÃÍê±ÏºóÒªÊÍ·ÅËü¡£ÄÇÃ´Õâ¸ö¹ý³Ì°´µÀÀíÓ¦¸ÃÊÇ£º 
+    - ÏµÍ³ÄÚ²¿ÏÈµ÷ÓÃplatform_deviceµÄremoveº¯Êý£¬ËüÖ»´¦Àí×Ô¼º²ãÌØÓÐµÄ±äÁ¿£» 
+    - Íê±Ïºó£¬ÏµÍ³µ÷ÓÃµÚÒ»²ãÅÉÉúÀàstruct deviceµÄreleaseº¯Êý£¬´¦ÀíÁË×Ô¼ºÕâÒ»²ãµÄÌØÓÐ±äÁ¿£» 
+    - ×îºó£¬µ÷ÓÃ»ùÀàkobjectµÄreleaseº¯Êý£¬½«Õû¸ö¿Õ¼äÊÍ·Åµô¡£ 
+
+Õû¸ö¹ý³ÌÓ¦¸Ã»á¸úC++Îö¹¹¹ý³Ì±È½ÏÀàËÆ£¬ÉÏÊöµÄ¡°ÏµÍ³ÄÚ²¿¡±Ò²Ó¦¸ÃÀàËÆÓÚC++±àÒëÆ÷×Ô¶¯Éú³ÉµÄ´úÂë£¬ÒòÎªC++ÖÐÎö¹¹º¯ÊýµÄÄæÏòµ÷ÓÃÊÇ×Ô¶¯½øÐÐµÄ£¬²¢Ã»ÓÐÔÚÅÉÉúÀàµÄÎö¹¹º¯ÊýÖÐÏÔÊ¾µ÷ÓÃ¡£ÀàËÆµØ£¬ÔÚ´Ë´¦ÉÏ²ãµÄreleaseÖÐÒ²²»»áÏÔÊ½µ÷ÓÃÏÂ²ãµÄrelease£¬¶¼ÊÇÓÉÏµÍ³ÄÚ²¿Íê³ÉµÄ¡£ 
+========================================
+=======================================================================
+=======================================================================
+
 
 Q:×îÐ¡×ÓÏµÍ³£¬£¬£¬¡£¡£¡£¡£+ramdisk+initrd ÔÚÉîÈë
 
