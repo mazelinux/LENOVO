@@ -348,3 +348,5 @@ Q:i2c关于bus-number与adapter的关系
 
 Q:Kmalloc的特点
 http://blog.sina.com.cn/s/blog_6648c11401011ho1.html
+Q:函数request_threaded_irq( )
+http://blog.chinaunix.net/uid-12461657-id-3064012.html
