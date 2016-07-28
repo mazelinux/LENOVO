@@ -290,3 +290,48 @@ Q:输入子系统（input）如何与i2c关联起来的？
 
 Q:msleep() 与mdelay()
 http://blog.csdn.net/mayouyang/article/details/4228378 两者实际运用区别
+
+
+Q:initcall的执行先后顺序
+#define module_init(x)    	__initcall(x);
+
+#define __initcall(fn) 		device_initcall(fn)
+
+#define device_initcall(fn)	__define_initcall("6",fn,6)
+
+执行顺序表：
+=======================================================================
+core_init被放在第1时间, arch_initcall被放在第3时间,  fs_initcall被放在第5时间. 这些在kernel-3.0/include/linux/init.h中定义
+=======================================================================
+#define pure_initcall(fn)          __define_initcall("0",fn,0)
+
+#define core_initcall(fn)          __define_initcall("1",fn,1)
+
+#define core_initcall_sync(fn)        __define_initcall("1s",fn,1s)
+
+#define postcore_initcall(fn)           __define_initcall("2",fn,2)
+
+#define postcore_initcall_sync(fn) __define_initcall("2s",fn,2s)
+
+#define arch_initcall(fn)          __define_initcall("3",fn,3)
+
+#define arch_initcall_sync(fn)        __define_initcall("3s",fn,3s)
+
+#define subsys_initcall(fn)              __define_initcall("4",fn,4)
+
+#define subsys_initcall_sync(fn)    __define_initcall("4s",fn,4s)
+
+#define fs_initcall(fn)                     __define_initcall("5",fn,5)
+
+#define fs_initcall_sync(fn)            __define_initcall("5s",fn,5s)
+
+#define rootfs_initcall(fn)       __define_initcall("rootfs",fn,rootfs)
+
+#define device_initcall(fn)              __define_initcall("6",fn,6)
+
+#define device_initcall_sync(fn)    __define_initcall("6s",fn,6s)
+
+#define late_initcall(fn)           __define_initcall("7",fn,7)
+
+#define late_initcall_sync(fn)         __define_initcall("7s",fn,7s)
+=======================================================================
