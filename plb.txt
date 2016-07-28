@@ -335,3 +335,16 @@ core_init╠╩╥етз╣з1й╠╪Д, arch_initcall╠╩╥етз╣з3й╠╪Д,  fs_initcall╠╩╥етз╣з5й╠╪Д. у
 
 #define late_initcall_sync(fn)         __define_initcall("7s",fn,7s)
 =======================================================================
+
+
+Q:i2c╧ьсзbus-numberсКadapter╣д╧ьо╣
+
+дЦ╣д©╙╥╒╟Еиосп╪╦╦ЖI2C╫с©зё╛╬мсп╪╦╦Жadapter , р╡╬мйгсп╪╦лУI2C bus ё╛  I2C CLIENT ╤тс╕╣д╬мйгдЦ╣дмБн╖I2C иХ╠╦ё╛сп╪╦╦Ж╬мсп╪╦╦ЖCLIENT , ╟яуБп╘иХ╠╦╡ЕхК©╙╥╒╟Её╛ ╤тс╕фДжп╣др╩лУBUS, дгц╢оЮс╕╣д╬м╤тс╕акфДжп╣др╩╦ЖADAPTER , ╫собю╢╣д╬мйг  CLIENT сК ADAPTER ╧╢╢НЁи╤такё╛ ╨СцФ╬мйгвЖ╦цвЖ╣дйбак
+
+
+
+
+
+
+Q:Kmalloc╣дль╣Ц
+http://blog.sina.com.cn/s/blog_6648c11401011ho1.html
