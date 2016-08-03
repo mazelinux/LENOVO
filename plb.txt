@@ -341,7 +341,7 @@ Q:i2c关于bus-number与adapter的关系
 
 你的开发板上有几个I2C接口，就有几个adapter , 也就是有几条I2C bus ，  I2C CLIENT 对应的就是你的外围I2C 设备，有几个就有几个CLIENT , 把这些设备插入开发板， 对应其中的一条BUS, 那么相应的就对应了其中的一个ADAPTER , 接下来的就是  CLIENT 与 ADAPTER 勾搭成对了， 后面就是做该做的事了
 
-
+http://www.cnblogs.com/BitArt/archive/2013/05/27/3101037.html这篇文件对硬件讲解比较详细
 
 
 
@@ -360,6 +360,8 @@ http://blog.chinaunix.net/uid-12461657-id-3064012.html
 有实时性保证。but,并不是所有的中断都可以被线程化，比如时钟中断，主要用来维护系统时间以及定时器
 等，其中定时器是操作系统的脉搏，一旦被线程化，就有可能被挂起，这样后果将不堪设想，所以不应当
 被线程化。 
+
+主要关键字 实时性。线程化中断
 =======================================================================
 当外设触发一次中断后，一个大概的处理过程是：
 1、具体CPU architecture相关的模块会进行现场保护，然后调用machine driver对应的中断处理handler
@@ -377,6 +379,9 @@ IRQF_TRIGGER_LOW：低电平触发
 IRQF_SAMPLE_RANDOM：为系统随机发生器提供支持  
 IRQF_SHARED：中断可在设备间共享  
 IRQF_DISABLED：是否快速中断
+IRQF_ONESHOT:选项说明该中断已经被线程化了（而且是特殊的one shot类型的）
+（虽然kernel的注释上是这样说，但是request_threaded_irq时还是必须要设定IRQF_ONESHOT，否者它就会被错误的强制线程化了。 
+其实我觉得这个ONESHOT的命名也是很不好，它不仅仅表示one shot，而且还是thread irq的标志。）
 =======================================================================http://blog.csdn.net/lengyuex/article/details/6272445这个跟看touchscreen一样
 
 http://www.wowotech.net/irq_subsystem/request_threaded_irq.html
@@ -400,10 +405,15 @@ struct irq_desc irq_desc[NR_IRQS] __cacheline_aligned_in_smp = {
 wowo 
 2015-03-09 16:18
 @heziq：request IRQ和hardware enable，应该是两个逻辑，只有hardware enable了，才有可能产生中断。因此一般的做法是：在probe中request IRQ，在需要使用设备时，enable它，中断产生。
-=====================================================================================================================================================================================================================
-
-
-
+=======================================================================
+有个小疑问，对于中断只简单使用过gpio中断，有个gpio_to_irq的函数，可以把gpio直接转换成 
+request_irq函数中所需要的irq number， 而其它的中断，对于request_irq中的irq number号如何 
+得到。==============================================================================================================================================
+新的中断子系统的思路是将中断处理分成primary handler和threaded handler，而旧的驱动代码一般是将中断处理分成top half和bottom half，如何将这部分的不同抹平？
+TODO
+=======================================================================
+http://blog.csdn.net/fanqipin/article/details/8153053 关于匹配讲述的很详细；如果关于驱动与设备的匹配出了问题，可以仔细看看
+=======================================================================
 request-thread-irq
 等待队列处理特点
 input子系统
