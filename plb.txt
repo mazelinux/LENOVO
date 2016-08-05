@@ -343,9 +343,9 @@ Q:i2c关于bus-number与adapter的关系
 
 http://www.cnblogs.com/BitArt/archive/2013/05/27/3101037.html这篇文件对硬件讲解比较详细
 
+http://blog.csdn.net/bob_fly1984/article/details/22690381根据实例讲解i2c
 
-
-
+=======================================================================
 Q:Kmalloc的特点
 http://blog.sina.com.cn/s/blog_6648c11401011ho1.html
 Q:函数request_threaded_irq( )
@@ -419,6 +419,9 @@ i2c协议里面最后一位是读写标志位.....I2C_BOARD_INFO只是说明地址......
 TODO
 =======================================================================
 http://blog.csdn.net/fanqipin/article/details/8153053 关于匹配讲述的很详细；如果关于驱动与设备的匹配出了问题，可以仔细看看
+=======================================================================
+等待队列wait_queue_head_t与完成量completion
+http://blog.csdn.net/younger_china/article/details/7176851 详解
 =======================================================================
 request-thread-irq
 等待队列处理特点
