@@ -422,6 +422,15 @@ http://blog.csdn.net/fanqipin/article/details/8153053 关于匹配讲述的很详细；如果
 =======================================================================
 等待队列wait_queue_head_t与完成量completion
 http://blog.csdn.net/younger_china/article/details/7176851 详解
+__wake_up_common 唤醒函数核心
+http://weiguozhihui.blog.51cto.com/3060615/1566980对核心函数的详细讲解
+http://blog.csdn.net/jansonzhe/article/details/47341383
+=======================================================================
+阻塞非阻塞，http://www.cnblogs.com/hanyan225/archive/2010/10/12/1848914.html
+=======================================================================
+http://blog.csdn.net/u012036443/article/details/11378765 内核文档的翻译
+=======================================================================
+对于linux kernel，每一个thread分配一个task_struct（其中有一个pid的标识），这和大部分的kernel处理不一样，其他的kernel针对一个进程分配一个task_struct，在该task_struct中嵌入了属于该进程的各个线程的数据。正因为如此，linux kernel创建一个线程组的概念来映射到POSIX中的进程概念。
 =======================================================================
 request-thread-irq
 等待队列处理特点
