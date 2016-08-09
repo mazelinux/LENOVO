@@ -51,6 +51,12 @@ udevd是根据一定的规则在/dev/目录下生成设备文件的后台服务进程。
 
 比如你插入一个u盘， udevd服务就会自动生成/dev/sda 这样的文件。
 =======================================================================
+
+
+
+
+
+
 =======================================================================
 http://eeepage.info/sysfs/ 对新的sysfs的讲解非常到位
 http://www.linuxidc.com/Linux/2012-05/60757.htm 同样讲解sysfs文件系统
@@ -78,8 +84,8 @@ A:
 ramdisk是一种基于内存的虚拟文件系统，通常用于放置内核的中间数据。
 而initrd全称为"boot loader initialized RAM disk"，也就是由启动加载器所初始化的RamDisk设备，它的作用是完善内核的模块机制，让内核的初始化流程更具弹性；内核以及initrd，都由bootloader在机子启动后被加载至内存的指定位置，主要功能为按需加载模块以及按需改变根文件系统。
 
-initrd 的英文含义是 bootloader initialized RAM disk，就是由 boot loader 初始化的内存盘。
-initrd 大体上就是指 包含根文件系统的ramdisk。
+
+initrd 大体上就是指包含根文件系统的ramdisk。
 initrd即initial ramdisk,它是在系统引导过程中挂载的一个临时根文件系统.激活系统所须加载的文件系统.
 
 http://blog.chinaunix.net/uid-23069658-id-3142047.html  Linux系统启动全过程
@@ -431,6 +437,13 @@ http://blog.csdn.net/jansonzhe/article/details/47341383
 http://blog.csdn.net/u012036443/article/details/11378765 内核文档的翻译
 =======================================================================
 对于linux kernel，每一个thread分配一个task_struct（其中有一个pid的标识），这和大部分的kernel处理不一样，其他的kernel针对一个进程分配一个task_struct，在该task_struct中嵌入了属于该进程的各个线程的数据。正因为如此，linux kernel创建一个线程组的概念来映射到POSIX中的进程概念。
+=======================================================================
+http://blog.csdn.net/younger_china/article/details/7176851
+http://blog.csdn.net/jansonzhe/article/details/47341383
+http://blog.csdn.net/shuxiaogd/article/details/50366039中后部
+http://www.cnblogs.com/zhuyp1015/archive/2012/06/09/2542894.html简单明确，一针见血
+http://blog.chinaunix.net/uid-20608849-id-3126863.html
+这两个关于等待队列的讲解
 =======================================================================
 request-thread-irq
 等待队列处理特点
