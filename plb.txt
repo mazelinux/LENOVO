@@ -446,6 +446,7 @@ http://blog.chinaunix.net/uid-20608849-id-3126863.html
 这两个关于等待队列的讲解
 =======================================================================
 http://www.tuicool.com/articles/nQjINf 日常小命令解析2>&1|tee
+http://blog.sina.com.cn/s/blog_69d581ad0100tied.html 这个是kmsg
 =======================================================================
 request-thread-irq
 等待队列处理特点
