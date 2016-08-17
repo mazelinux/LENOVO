@@ -448,6 +448,10 @@ http://blog.chinaunix.net/uid-20608849-id-3126863.html
 http://www.tuicool.com/articles/nQjINf 日常小命令解析2>&1|tee
 http://blog.sina.com.cn/s/blog_69d581ad0100tied.html 这个是kmsg
 =======================================================================
+http://blog.csdn.net/topasstem8/article/details/5754767  enum特殊用法
+=======================================================================
+http://blog.chinaunix.net/uid-26746189-id-3379014.html bit的用法
+=======================================================================
 request-thread-irq
 等待队列处理特点
 input子系统
