@@ -452,6 +452,8 @@ http://blog.csdn.net/topasstem8/article/details/5754767  enum特殊用法
 =======================================================================
 http://blog.chinaunix.net/uid-26746189-id-3379014.html bit的用法
 =======================================================================
+http://blog.csdn.net/droidphone/article/details/8434768 多点触控的input TP
+=======================================================================
 request-thread-irq
 等待队列处理特点
 input子系统
