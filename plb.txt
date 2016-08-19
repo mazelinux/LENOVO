@@ -454,6 +454,11 @@ http://blog.chinaunix.net/uid-26746189-id-3379014.html bit的用法
 =======================================================================
 http://blog.csdn.net/droidphone/article/details/8434768 多点触控的input TP
 =======================================================================
+http://blog.csdn.net/yaozhenguo2006/article/details/6775751 input_event 函数
+http://blog.csdn.net/loongembedded/article/details/51166888 
+http://blog.csdn.net/loongembedded/article/details/51167111  input事件类型
+http://blog.csdn.net/tianruxishui/article/details/7173045 写得不错，
+=======================================================================
 request-thread-irq
 等待队列处理特点
 input子系统
