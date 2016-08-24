@@ -467,6 +467,7 @@ http://blog.csdn.net/wh_19910525/article/details/42240521
 关于此安卓设备的keycode定义在$ROOT_DIR/frameworks/base/core/java/android/view/KeyEvent.java里面
 根据上面获得的keycode 执行：input keyevent $keycode 模拟相应事件
 http://www.codeceo.com/article/android-keyboard-monitor.html
+
 =======================================================================
 
 request-thread-irq
