@@ -462,6 +462,9 @@ https://www.kernel.org/doc/Documentation/input/multi-touch-protocol.txt 源码的文
 http://blog.chinaunix.net/uid-20776117-id-3212095.html 内部函数剖析
 =======================================================================
 源代码调试方案 总的来说还是printk
+http://myeyeofjava.iteye.com/blog/1999615 非源代码工具方式getevent,sendevent,input命令的使用
+http://blog.csdn.net/wh_19910525/article/details/42240521
+关于此安卓设备的keycode定义在$ROOT_DIR/frameworks/base/core/java/android/view/KeyEvent.java里面
 
 request-thread-irq
 等待队列处理特点
