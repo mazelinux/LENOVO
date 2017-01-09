@@ -1,0 +1,20 @@
+1，	把device.c与driver文件夹cp到新的kenrel的指定位置
+可能需要的主意。相关的文件，一些头文件。
+
+2，修改device.c这一层的Makefile
+	仿照其他device的格式写Makefile 
+
+3，新建driver文件夹里面的Makefile，Kconfig;并且修改上层的Makefile，Kconfig
+   确保文件都包含，Kconfig的写法要注意
+主要要注意Makefile的书写格式。保证不能出现书写错误。
+
+
+4，开始编译内核，有bug解bug（会遇到什么样的bug我还不清楚）
+确认probe函数。判断tp是否真的probe成功很重要
+	如果出现问题，probe里面要多打log自己慢慢排查问题根源
+
+5，固件子系统也需要加在里面，固件子系统的Makefile也要修改（这点尤其注意，有些固件文件在firmware目录，有的在android下面的子目录，真是恶心）
+
+6，确保arch里面的config文件的正确性
+
+#上面特指的是不支持dts的方法
