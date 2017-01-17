@@ -1,0 +1,122 @@
+烧写速度太慢了
+
+原函数：
+ret=request_thread_irq(ts->client->irq,null,istcore_irq_task,(IRQF_TRIGGER_LO｜IRQ_ONESHOT), ts->client->name, ts);
+
+修改方式一
+如果handle与thread用相同的函数（原来那个放在thread里面的函数）：
+ ret=request_thread_irq(ts->client->irq,istcore_irq_task,istcore_irq_task,(IRQF_TRIGGER_LOW｜IRQ_ONESHOT), ts->client->name, ts);
+tb启动不起来。
+无限循环
+start boot options等待
+启动到lenovo界面
+
+修改方式二
+ret=request_thread_irq(ts->client->irq,my_handler,istcore_irq_task,(IRQF_TRIGGER_LOW｜IRQ_ONESHOT), ts->client->name, ts);
+
+static irqreturn_t my_handler (int irq, void * handle)
+{
+	Printk(“my_handler run \n”);
+	Return IRQ_WAKE_THREAD;
+}
+结果：cat /proc/kmsg 触摸显示printk 内容
+
+尝试将thread的处理函数替换handler，thread存在。结果如1
+尝试将thread的处理函数替换handler，并且thread为null。结果如1
+
+
+接下来试图寻找到底是哪些代码导致启动失败。在thread里面
+测试结果是如果两个函数都有对寄存器的操作，则平板无法开机。结果如1
+进一步测试表明只要在handler里面放入对寄存器的操作，都会无法开机。不管thread里面写的什么
+尝试在handler里面放入延时函数msleep，开机失败，卡死在len’ovo界面
+
+执行在中断上下文中的代码需要注意的一些事项：
+?	中断上下文中的代码不能进入休眠。
+?	不能使用mutex，只能使用自旋锁，且仅当必须时。
+?	中断处理函数不能直接与用户空间进行数据交换。
+?	中断处理程序应该尽快结束。
+?	中断处理程序不需要是可重入的，因为相同的中断处理函数不能同时在多个处理器上运行。
+?	中断处理程序可能被一个优先级更高的中断处理程序所中断。为了避免这种情况，可以要求内核将中断处理程序标记为一个快速中断处理程序（将本地CPU上的所有中断禁用），不过在采取这个动作前要慎重考虑对系统的影响
+
+
+利用脚本模拟的触摸事件在getevent以及cat /proc/kmsg里面没有任何显示
+
+搜索全文查找关于request_threaded_irq的例子
+Out/target/product/r2_cht_ffd/obj/kernel/source/virt/kvm/assigned-dev.c：350
+这里面的handler写的比较简单。用来spin_lock去，没有复杂的寄存器读取
+Kernel/cht/drivers/staging/iio/accel/lis3l02dq_core.c :724 
+这里面的handler写的简单。调用函数 iio_trigger_poll
+这里面的handler在.h文件里面define了另外一个名字。在另外一个文件里面进行的定义，实现
+Kernel/cht/drivers/staging/imx-drm/imx-hdmi.c:1632
+这个关于hdmi的中断的handler里面写了对硬件的读取 hdmi_readb()函数的使用。Hdmi_writeb函数的使用；但是我没有找到最终的调用
+Kernel/cht/drivers/i2c/busses/i2c-omap.c:1228
+这里面的handler调用了 omap_i2c_read_reg 基本确定是可以在handler里面对寄存器进行操作的
+分析下来调用内核提供函数
+原子操作
+并且互斥锁不能用于中断上下文
+感觉是互斥锁的锅
+
+准备尝试将thread里面的处理更加细化。分割
+
+
+仔细查看可以得出问题。互斥锁太多了。不能在中断上下文中执行
+
+
+
+发现platform_ist940e.c中没有写i2c-put_adapter 加上后正常使用tablet。不明觉利
+
+
+
+一个驱动分两部分
+一类一旦开机就无法测试，
+一类可以在整个程序运行的时候测试
+
+
+
+关于输出的错误序列号 查看kernel/../include/uapi/asm-generic/errno.h
+http://blog.sina.com.cn/s/blog_4763501601016hbs.html关于内核错误码的全体汇总
+__FILE__, __LINE__, __FUNCTION__
+三个用于print的宏，使debug的时候更加方便
+
+
+
+总共四种输出方式
+pr_warning
+pr_info
+pr_debug
+pr_err
+错误出现在 wifi打开，手动屏幕熄灭的时候。 （猜测wifi的规律性中断打断了keybutton的中断，ic供电出现了问题。导致sd接口的电压变化。从而引起电压不对，无限循环，死机）
+
+使用下来。Pr_info与pr_warning会输出
+这个驱动有两套操作ops，对应的是有卡和无卡的情况
+
+
+
+
+
+一、如果在终端中开没有打开vim，可以：
+横向分割显示：
+$ vim -o filename1 filename2  
+纵向分割显示：
+$ vim -O filename1 filename2
+二、如果已经用vim打开了一个文件，想要在窗口中同时再打开另一个文件：
+横向分割显示：
+:vs filename
+纵向分割显示：
+:sp filename
+其中，vs可以用vsplit替换，sp可以用split替换。
+如果finename不存在，则会新建该文件并打开。
+三、关闭窗口
+关闭光标所在的窗口：
+:q 或 :close
+关闭除光标所在的窗口之外的其他窗口：
+:only
+关闭所有窗口：
+:qa
+四、切换窗口
+打开了多个窗口，需要在窗口之间切换时：
+ctrl + w w
+即按住ctrl键，再按两下w键。
+或者ctrl + w
+即按住ctrl键，按一次w键，再按一次表示方向的h或j或k或l，则光标会切换到当前窗口的 左｜下｜上｜右 侧的窗口
+
