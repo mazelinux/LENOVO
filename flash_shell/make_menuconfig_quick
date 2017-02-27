@@ -1,0 +1,35 @@
+source build/envsetup.sh
+echo -e "\033[31m 1 :yeti_10_row_wifi-user \033[0m"
+echo -e "\033[31m 2 :yeti_10_row_wifi-userdebug \033[0m"
+echo -e "\033[31m 3 :yeti_10_row_lte-user \033[0m"
+echo -e "\033[31m 4 :yeti_10_row_lte-userdebug \033[0m"
+echo -n "number:"
+read number
+#lunch yeti_10_row_wifi-user
+if [ $number = "1" ]; then 
+lunch yeti_10_row_wifi-user
+fi
+if [ $number = "2" ]; then 
+lunch yeti_10_row_wifi-userdebug
+fi
+if [ $number = "3" ]; then 
+lunch yeti_10_row_lte-user
+fi
+if [ $number = "4" ]; then 
+lunch yeti_10_row_lte-userdebug
+fi
+defconfig=$(get_build_var PRODUCT_KERNEL_DEFCONFIG)
+echo "defconfig is $defconfig"
+cmd_config=$(echo $defconfig|cut -d '/' -f 6)
+echo "cutted result is $cmd_config"
+src_path=$(echo $defconfig|cut -d '/' -f -2)
+ref_path=$(echo $defconfig|cut -d '/' -f 3-)
+echo "src path is $src_path,ref path is $ref_path"
+cur_path=$(pwd)
+cd $src_path
+make mrproper
+make defconfig $cmd_config
+make menuconfig ARCH=x86_64
+cp .config $ref_path
+make mrproper
+cd $cur_path
