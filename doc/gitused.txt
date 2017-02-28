@@ -1,0 +1,19 @@
+
+repo 回退当前所有的修改，和服务器上代码拉下来一样
+
+repo forall -c "git clean -df" && repo forall -c "git checkout ." && repo sync -j8
+repo 回退当前所有的修改，和服务器上代码拉下来一样
+
+repo forall -c "git clean -df" && repo forall -c "git checkout ." && repo sync -j8
+
+
+---------------------------------------------------
+比如说，今天是12号，我想同步9号的中心库上的版本，repo有这个功能不？ 求解释
+
+答：
+这个命令应该能做到 repo forall -c 'HAHA=`git log --before="3 days" -1 --pretty=format:"%H"`;git reset --hard $HAHA'
+
+----------------------------------------------------
+repo 回退当前所有的修改，和服务器上代码拉下来一样
+
+repo forall -c "git clean -df" && repo forall -c "git checkout ." && repo sync -j8
