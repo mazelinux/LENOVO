@@ -2,6 +2,8 @@
 
 解决办法：
 
-最简单的，adb remount
+最简单的，
+adb root
+adb remount
 
 不行的话，adb shell su之后将文件系统remount为读写权限： mount -o remount rw /system。出于安全考虑，记得完事后remount回只读： mount -o ro,remount /system
