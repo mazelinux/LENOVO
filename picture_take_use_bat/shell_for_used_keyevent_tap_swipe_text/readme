@@ -1,0 +1,9 @@
+#########
+#These scripts consult by Thomas
+#Author by Maze:malei4
+#########
+#How to use
+#########
+./function_used.sh $times
+ 
+the action you want to do ,please modify the TO_DO? in the config.sh
