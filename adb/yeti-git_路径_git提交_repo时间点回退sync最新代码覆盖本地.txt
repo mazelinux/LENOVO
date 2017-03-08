@@ -1,0 +1,60 @@
+download commands:
+$ repo init -u tablet:/platform/manifest -b intelCHT_M_MR1_dev   [master]
+$ repo sync
+
+$ repo init -u tabletmirr:platform/manifest -b intelCHT_N_dev&&repo sync -c
+
+build commands:
+$ source build/envsetup.sh
+$ lunch yeti_10_xxx_xxx
+//$ make flashfiles -j24
+$ make flashfiles -j24 
+
+
+add key if
+
+格式
+git push origin HEAD:refs/for/master
+------
+gerrit需要在服务器端才能打开的页面
+--------------------------------------------------
+
+repo 回退当前所有的修改，和服务器上代码拉下来一样
+
+repo forall -c "git clean -df" && repo forall -c "git checkout ." && repo sync -j8
+repo 回退当前所有的修改，和服务器上代码拉下来一样
+
+repo forall -c "git clean -df" && repo forall -c "git checkout ." && repo sync -j8
+
+
+---------------------------------------------------
+比如说，今天是12号，我想同步9号的中心库上的版本，repo有这个功能不？ 求解释
+
+答：
+这个命令应该能做到 repo forall -c 'HAHA=`git log --before="3 days" -1 --pretty=format:"%H"`;git reset --hard $HAHA'
+
+或者
+cd .repo/manifest/
+repo -m "xxxx.xml"
+repo forall -c "reset --hard"
+----------------------------------------------------
+repo 回退当前所有的修改，和服务器上代码拉下来一样
+
+repo forall -c "git clean -df" && repo forall -c "git checkout ." && repo sync -j8
+
+----------------------------------------------------
+Android ROM开发经常使用repo sync。有时候有些project因为调试的原因做了一些改动，sync下来就和远程不同步了。 参考了repo的代码（.repo/repo/subcmds/sync.py）里有个参数：
+
+<!-- lang: python -->
+    p.add_option('-d', '--detach',
+             dest='detach_head', action='store_true',
+             help='detach projects back to manifest revision')
+repo sync -d会将HEAD强制指向manifest的库，而忽略本地的改动。
+
+所以比较安全的做法是 先确认本地改动没必要保存了，确认之前不妨用分支备份一下（git checkout -b backup_branch; git add -u; git commit） 或者用笨办法，直接用cp备份一下，然后：
+
+<!-- lang: shell -->
+repo sync -d
+repo forall -c 'git reset --hard'    # Remove all working directory (and staged) changes.
+repo forall -c 'git clean -f -d'     # Clean untracked files
+这样，本地代码和远程服务器的代码就完全一致了

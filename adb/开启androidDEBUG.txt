@@ -1,0 +1,5 @@
+打开ALOGV: #define LOG_NDEBUG 0
+打开ALOGI：#define LOG_NIDEBUG 0
+打开ALOGD：#define LOG_NDDEBUG 0
+
+打开全部LOG：#undef NDEBUG
