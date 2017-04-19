@@ -3,3 +3,13 @@
 打开ALOGD：#define LOG_NDDEBUG 0
 
 打开全部LOG：#undef NDEBUG
+
+
+-------------------------
+logcat
+
+这个命令会输出Log的格式为:
+日志时间，           进程号， 线程号，   Log级别， TAG,                      后面跟的是Log内容。
+04-19 10:12:29.569   3381    3691       D        SmartpadManagerService:   Send command(2:0) to OSK
+04-19 10:12:29.570   3381    15997      D        OskCommClient:            write socket /data/osk/socket/oskd, message:2:0
+04-19 10:12:29.570   3082    3082       E        OSK     :                 Error in replying to client. errno: 107
