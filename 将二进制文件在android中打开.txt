@@ -1,0 +1,2 @@
+gcc -static a.c -o a
+就是加个static保证静态编译库；这样就不会找不到
